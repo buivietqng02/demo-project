@@ -16,6 +16,7 @@ import EpisodeDetail from './components/EpisodeDetail'
 function App() {
  
   const [list, setList]= useState([])
+  const [episodes, setEpisodes]= useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(
    localStorage.getItem('user')
   )
@@ -52,7 +53,9 @@ function App() {
       isLoading,
       setIsLoading,
       list,
-      setList
+      setList,
+      episodes,
+      setEpisodes
 
     }}>
     
@@ -75,7 +78,7 @@ function App() {
         <Route path='/shows/:id/episodes' element={<ConfigRoute>
           <EpisodeList/>
         </ConfigRoute>} />
-        <Route path='/shows/:id/episodes/:season/:number' element={<ConfigRoute>
+        <Route path='/shows/:id/season/:season/number/:number' element={<ConfigRoute>
           <EpisodeDetail/>
         </ConfigRoute>} />
          

@@ -1,11 +1,11 @@
 import React  from "react"
 import {Link} from 'react-router-dom'
-const EpisodeItem= ({item})=> {
+const EpisodeItem= ({item, show})=> {
     const {image, name, number, url,season}= item
     
     return (
         <div className= 'item-wrapper'>
-           <Link to='/shows/1'>
+           <Link to={`/shows/${show}/season/${season}/number/${number}`}>
             <div className='img-wrapper'>
             <img src= {image.medium} alt='no picture'/>
             </div>

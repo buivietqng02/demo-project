@@ -4,8 +4,8 @@ import { useAppContext } from './AppContext'
 import {Spinner} from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
 const EpisodeList= () => {
-    const {isLoading, setIsLoading}= useAppContext()
-    const [episodes, setEpisodes]= useState([])
+    const {isLoading, setIsLoading,episodes, setEpisodes}= useAppContext()
+    
     const params= useParams()
     const id= params.id
    
@@ -26,7 +26,7 @@ const EpisodeList= () => {
         <div className='items-wrapper'>
             {
                 episodes.map((item, index)=> 
-                <EpisodeItem key= {index} item= {item}/>)
+                <EpisodeItem key= {index} item= {item} show= {id}/>)
             }
         </div>
 
