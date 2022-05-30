@@ -7,7 +7,7 @@ const ShowItem= ({item})=> {
         <div className= 'item-wrapper'>
            <Link to={`/shows/${id}`}>
             <div className='img-wrapper'>
-            <img src= {image.medium} alt='no picture'/>
+            <img src= {image?.medium} alt={name}/>
             </div>
             </Link>
 

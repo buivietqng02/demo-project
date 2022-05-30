@@ -1,7 +1,7 @@
 const NoFound= ()=> {
     return (
         <>
-        <h1>Nothing here</h1>
+        <h1>not a valid url</h1>
         </>
     )
 }

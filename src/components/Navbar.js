@@ -11,11 +11,16 @@ const NavBar= ({handleLogout})=> {
            {isAuthenticated ?
            <div>
             <SearchBox/>
-            <NavLink to="/login"
+            <NavLink className= 'navbar-logout' to="/login"
             onClick={handleLogout}>log out</NavLink>
             </div>
-            : <div>
-                 <NavLink to="login">log in</NavLink>
+            : <div >
+                 <NavLink className= 'navbar-login'
+               
+                 to="/login">log in</NavLink>
+                  <NavLink className= 'navbar-login'
+                style={{marginLeft: '10px'}}
+               to="/signup">Sign Up</NavLink>
             </div>
            }
            

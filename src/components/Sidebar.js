@@ -1,17 +1,25 @@
 import React from "react"
-
+import { NavLink } from "react-router-dom"
 import {BiMoviePlay, BiHome, BiLogOut, BiBookmarks, BiVideo} from 'react-icons/bi'
 
-const Sidebar=()=> {
+const Sidebar=({handleLogout})=> {
     return (
         <div className="sidebar">
-        
-           <div><p><i> <BiHome/></i><span>Home</span></p></div>
-           <div><p><i> <BiMoviePlay/></i><span>Movies</span></p></div>
-           <div><p><i><BiVideo/></i><span>Tv Shows</span></p></div>
-           <div><p><i> <BiBookmarks/></i><span>Favourite</span></p></div> 
-           <div><p><i> <BiLogOut/></i><span>Logout</span></p></div>
-          
+            <div className='sidebar-link'>
+           <NavLink className='sidebar-link'
+           
+           to= '/'><div><i> <BiHome/></i><span>Home</span></div></NavLink>
+         </div>
+         <div className='sidebar-link'>
+         
+           <NavLink
+           to='/myfavourites'><div><i> <BiBookmarks/></i><span>Favourite</span></div></NavLink> 
+           </div>
+           <div className='sidebar-link'>
+           <NavLink
+           to='/login'
+           onClick={handleLogout}><div><i> <BiLogOut/></i><span>Logout</span></div></NavLink>
+          </div>
        
         </div>
         

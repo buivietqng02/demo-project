@@ -16,12 +16,28 @@ const Login=()=> {
     const handleSubmit= (e)=> {
         console.log(input)
         e.preventDefault()
-        if (input.email==='test@gmail.com' && input.password==='123') {
+        let auth= false
+       let userStorage= localStorage.getItem(input.email)
+       console.log(userStorage)
+       console.log(input.email)
+       if (userStorage==null) {
+           auth= false
+       } else {
+           let user= JSON.parse(userStorage)
+           console.log(user)
+           if (user.password===input.password) {
+                auth= true
+           } else {
+               auth= false
+           }
+       }
+
+        if (auth) {
             setIsAuthenticated(true)
-          const n= JSON.parse(localStorage.getItem('user1'))
-          console.log(n)
+         
               let  user= { 
-                    isAuth: true
+                    isAuth: true,
+                    email: input.email
                 }
             
             console.log('auth')
@@ -36,25 +52,31 @@ const Login=()=> {
     }
     return (
         <div className='login-form'>
-        <form>
+            <div>
+                <h3>Login to continue</h3>
+            </div>
+            <div>
             <label htmlFor='email'>Email</label>
             <input type='text' id='email'
             onChange={onChange}
             name='email' value={input.email}
             />
-            <br/>
+            </div>
+            <div>
             <label htmlFor='email'>Password</label>
             <input type='text' id='password'
             name='password' value={input.password} 
             onChange={onChange}
            />
-            <br/>
+            </div>
+           
             <button type='submit' 
             className='btn btn-submit'
             disabled= {!validateForm()}
             onClick={handleSubmit}
             >Login</button>
-        </form>
+            
+       
         </div>
     )
 }

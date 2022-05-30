@@ -7,13 +7,23 @@ const Home= ()=> {
     useEffect( ()=> {
         setIsLoading(true)
         async function readData() {
+            try {
        let response=await fetch('https://api.tvmaze.com/shows')
+       if (response.ok){
+           console.log('fetch ok')
        let movies= await response.json()
        console.log(movies.length)
        console.log(movies[0])
-       console.log(movies[1])
+      
        setList(movies)
        setIsLoading(false)
+       } else {
+           throw 'error when fetching'
+       }
+       }
+       catch(err) {
+           alert(err.toString())
+       }
         }
         readData()
      

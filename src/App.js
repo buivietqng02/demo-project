@@ -12,6 +12,7 @@ import NoFound from './components/NoFound'
 import ShowDetail from './components/ShowDetail'
 import EpisodeList from './components/EpisodeList'
 import EpisodeDetail from './components/EpisodeDetail'
+import Signup from './components/Signup'
 
 function App() {
  
@@ -61,10 +62,10 @@ function App() {
     
     <Router>
       <Navbar handleLogout= {handleLogout}/>
-      <Sidebar/>
+      <Sidebar handleLogout= {handleLogout}/>
       <Routes>
         <Route  path='/' element= {<Navigate to='/shows'/>}/>
-          
+        <Route  path='/signup' element= {<Signup/>}/> 
         
         <Route path='/shows' element={<ConfigRoute>
           <Home/>
@@ -96,16 +97,7 @@ function App() {
     </Router>
     
 
-   {/*  <ul>
-    {list.map((l, index)=> {
-      const src= l.image && l.image.medium 
-      return (
-    <li key={index}>
-      <img src={src} /></li>
-      )
-      })}
-    </ul>
-    <p>{list.length}</p> */}
+   
     </AppContext.Provider>
    
   );

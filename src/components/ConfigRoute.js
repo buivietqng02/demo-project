@@ -10,6 +10,9 @@ const ConfigRoute= ({children})=> {
         if (!isAuthenticated) {
             navigate('/login')
         }
+        if (isAuthenticated && location.pathname==='/login') {
+            navigate('/')
+        }
     }, [isAuthenticated])
     return (
         <>

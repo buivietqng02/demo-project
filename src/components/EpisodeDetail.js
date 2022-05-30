@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { Spinner } from 'react-bootstrap'
-import { useAppContext } from './AppContext'
+
 import { useLocation } from 'react-router-dom'
 const EpisodeDetail= ()=> {
     const location= useLocation()
     const params= useParams()
-    const {isLoading, setIsLoading}= useAppContext()
+    const [isLoading, setIsLoading]= useState(true)
     const [episodeDetail, setEpisodeDetail]= useState({})
     const id= params.id
     const season= params.season
@@ -14,12 +14,22 @@ const EpisodeDetail= ()=> {
     useEffect(()=> {
         async function readData() {
             setIsLoading(true)
+            try {
             let response=await fetch(`https://api.tvmaze.com/shows/${id}/episodebynumber?season=${season}&number=${number}`)
-            let episode= await response.json()
-           console.log(episode)
+            let episode
+            if (response.ok) {
+             episode= await response.json()
+            
             setEpisodeDetail(episode)
             setIsLoading(false)
+            } else {
+                throw 'error when fetching data'
+            }
              }
+             catch(err) {
+                 console.log(err.toString())
+             }
+            }
              readData()
     },[])
     return (
@@ -28,13 +38,13 @@ const EpisodeDetail= ()=> {
              (isLoading)  ?
              <Spinner/>
              : <div>
-                 <img src={episodeDetail.image.medium}/>
+                 <img src={episodeDetail?.image?.medium}/>
                  <div>
-                     <p>title {episodeDetail.name}</p>
-                     <p>Season {episodeDetail.season}: number {episodeDetail.number}</p>
-                     <p>Summary: {episodeDetail.summary}</p>
-                     <p>Air date {episodeDetail.airdate}</p>
-                     <p>Rating: {episodeDetail.rating.average}</p>
+                     <p><span style={{fontWeight: 'bold'}}>Title : </span>{episodeDetail?.name}</p>
+                     <p><span style={{fontWeight: 'bold'}}>Season: </span> {episodeDetail?.season}: number {episodeDetail?.number}</p>
+                     <p><span style={{fontWeight: 'bold'}}>Summary:</span> {episodeDetail?.summary}</p>
+                     <p><span style={{fontWeight: 'bold'}}>Air date: </span> {episodeDetail?.airdate}</p>
+                     <p><span style={{fontWeight: 'bold'}}>Rating: </span> {episodeDetail?.rating?.average}</p>
                  </div>
              </div>
         }

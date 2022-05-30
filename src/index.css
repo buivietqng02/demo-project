@@ -67,10 +67,34 @@
   padding-right: 50px;
 }
 .login-form {
-  width: 90vw;
+  width: 80vw;
   max-width: 600px;
   margin: 0 auto;
   margin-top: 30px;
+  background-color:var(--content-bg) ;
+  color: white;
+  
+  padding: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.login-form input {
+  margin: 10px;
+ 
+  padding: 5px;
+ 
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.login-form #password {
+  position: relative;
+  left: -10px;
+}
+.login-form button {
+  padding: 7px 15px;
 }
 .search-input {
   padding: 5px;
@@ -84,16 +108,43 @@
   gap: 20px 10px;
   padding: 10px;
 }
-.item-wrapper {
 
-}
 .item-info {
   color: rgba(255,255,255,0.3);
   text-align: center;
 }
-.img-wrapper {
-  
-}
+
 .img-wrapper img {
   border-radius: 5%;
 }
+.navbar-login {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255,255,255,1);
+  background-color: #314052;
+  padding: 7px;
+  border-radius: 5px;
+
+}
+.navbar-login:hover {
+  background-color: aquamarine;
+}
+.sidebar-link:hover {
+  background-color: lightgrey;
+ text-decoration: none;
+}
+
+.navbar-logout {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(255,255,255,1);
+  background-color: #314052;
+  padding: 7px;
+  border-radius: 5px;
+ 
+
+}
+.navbar-logout:hover {
+  background-color: aquamarine;
+}
+
