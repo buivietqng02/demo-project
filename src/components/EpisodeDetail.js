@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { Spinner } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { addEpisodeFavourite } from '../redux/slice'
 
 import { useLocation } from 'react-router-dom'
 const EpisodeDetail= ()=> {
+    const dispatch=useDispatch()
     const location= useLocation()
     const params= useParams()
     const [isLoading, setIsLoading]= useState(true)
@@ -46,6 +49,16 @@ const EpisodeDetail= ()=> {
                      <p><span style={{fontWeight: 'bold'}}>Air date: </span> {episodeDetail?.airdate}</p>
                      <p><span style={{fontWeight: 'bold'}}>Rating: </span> {episodeDetail?.rating?.average}</p>
                  </div>
+                 <div>
+                     <button
+                     onClick={()=> dispatch(addEpisodeFavourite(episodeDetail))}
+
+                     >Add to Favourite</button>
+                  </div>   
+                  <div>
+                     <button>Like</button>
+                     <button>Unlike</button>
+                  </div>   
              </div>
         }
         </div>

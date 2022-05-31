@@ -13,7 +13,7 @@ const Sidebar=({handleLogout})=> {
          <div className='sidebar-link'>
          
            <NavLink
-           to='/myfavourites'><div><i> <BiBookmarks/></i><span>Favourite</span></div></NavLink> 
+           to='/myfavourite'><div><i> <BiBookmarks/></i><span>Favourite</span></div></NavLink> 
            </div>
            <div className='sidebar-link'>
            <NavLink

@@ -59,7 +59,7 @@
   top: 0;
   left: 50px;
   background-color: var(--header-bg);
-  height: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -129,6 +129,10 @@
 .navbar-login:hover {
   background-color: aquamarine;
 }
+.sidebar-link span {
+  text-decoration: none;
+  
+}
 .sidebar-link:hover {
   background-color: lightgrey;
  text-decoration: none;
@@ -146,5 +150,25 @@
 }
 .navbar-logout:hover {
   background-color: aquamarine;
+}
+.tabs {
+  position: relative;
+  left: 100px;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  margin: 10px;
+
+
+
+}
+.tab {
+  padding: 5px;
+  border: 2px solid;
+  font-size: 1.2em;
+  border-bottom: none;
+  cursor: pointer;
+}
+.rest {
+  border-bottom: 1px solid;
 }
 

@@ -2,9 +2,12 @@ import React, { useState,useEffect } from 'react'
 import {useParams, Link, useLocation} from 'react-router-dom'
 import { useAppContext } from './AppContext'
 import { Spinner } from 'react-bootstrap'
+import {useSelector, useDispatch} from 'react-redux'
+import { addShowFavourite , addEpisodeFavourite} from '../redux/slice'
 
 
 const ShowDetail= ()=> {
+    const dispatch=useDispatch()
     const [isLoading, setIsLoading]= useState(true)
     const location= useLocation()
     const {list}= useAppContext()
@@ -37,14 +40,26 @@ const ShowDetail= ()=> {
     return (
         <div style={{position: 'relative',left:'100px'}}>
             {isLoading ? <Spinner/> :
+        <div>
+            <h3>Show Detailds</h3>
+            <img src={showDetail?.image?.medium}/>
+            <p><span style={{fontWeight: 'bold'}}>Show number: </span> {showDetail?.id}</p>
+            <p><span style={{fontWeight: 'bold'}}>Title: </span>{showDetail?.name}</p>
+            <p><span style={{fontWeight: 'bold'}}>Summary: </span>{showDetail.summary}</p>
+            <p><span style={{fontWeight: 'bold'}}>Rating: </span> {showDetail?.rating?.average}</p>
+            <Link to={`${location?.pathname}/episodes`}>Go to episodes</Link>
             <div>
-        <h3>Show Detailds</h3>
-        <img src={showDetail?.image?.medium}/>
-        <p><span style={{fontWeight: 'bold'}}>Show number: </span> {showDetail?.id}</p>
-        <p><span style={{fontWeight: 'bold'}}>Title: </span>{showDetail?.name}</p>
-        <p><span style={{fontWeight: 'bold'}}>Summary: </span>{showDetail.summary}</p>
-        <p><span style={{fontWeight: 'bold'}}>Rating: </span> {showDetail?.rating?.average}</p>
-        <Link to={`${location?.pathname}/episodes`}>Go to episodes</Link>
+                     <button
+                     onClick={()=> {
+                        
+                            
+                        dispatch(addShowFavourite(showDetail))}}
+                     >Add to Favourite</button>
+                  </div>   
+                  <div>
+                     <button>Like</button>
+                     <button>Unlike</button>
+                  </div>   
         </div>
     }
         </div>

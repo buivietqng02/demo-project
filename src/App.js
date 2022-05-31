@@ -13,9 +13,15 @@ import ShowDetail from './components/ShowDetail'
 import EpisodeList from './components/EpisodeList'
 import EpisodeDetail from './components/EpisodeDetail'
 import Signup from './components/Signup'
+import store from './redux/store'
+import {useSelector} from 'react-redux'
+import MyFavourite from './components/MyFavourite'
+import EpisodeHome from './components/EpisodeHome'
+
 
 function App() {
- 
+  const value= useSelector((state)=> state.favourite.showFavourite)
+  console.log(value)
   const [list, setList]= useState([])
   const [episodes, setEpisodes]= useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -70,14 +76,15 @@ function App() {
         <Route path='/shows' element={<ConfigRoute>
           <Home/>
         </ConfigRoute>} />
-        <Route path='/shows/:id' element={<ConfigRoute>
-          <ShowDetail/>
-        </ConfigRoute>} />
+       
         <Route path='/shows/:id' element={<ConfigRoute>
           <ShowDetail/>
         </ConfigRoute>} />
         <Route path='/shows/:id/episodes' element={<ConfigRoute>
-          <EpisodeList/>
+          <EpisodeHome/>
+        </ConfigRoute>} />
+        <Route path='/myfavourite' element={<ConfigRoute>
+          <MyFavourite/>
         </ConfigRoute>} />
         <Route path='/shows/:id/season/:season/number/:number' element={<ConfigRoute>
           <EpisodeDetail/>
