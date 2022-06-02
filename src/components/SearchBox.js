@@ -1,24 +1,45 @@
-import React, {useState, useCallback} from 'react'
-import debounce from '../utils/debounce'
+import React, {useState, useEffect} from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+
 import { useAppContext } from './AppContext'
-const SearchBox= ()=> {
-    const {setSearchString} = useAppContext
+const SearchBox= ({type,placeholder})=> {
+    const location= useLocation()
+    let [searchParams, setSearchParams] = useSearchParams()
+    const {searchString, setSearchString} = useAppContext()
     const [value, setValue] = useState('')
-    const debounced= useCallback(
-        debounce(nextValue=> setSearchString(nextValue), 1000),
-        []
-    )
+    useEffect(()=> {
+        return ()=> {
+            setSearchString({
+                text: '',
+                number: '',
+                date: ''
+            })
+        }
+    },[location.pathname])
     const handleChange= (e)=> {
         const nextValue= e.target.value
         setValue(nextValue)
-        debounced(nextValue)
+        console.log(type)
+        if (type==='text'){
+        setSearchString({...searchString, text: nextValue})
+        }
+        if (type==='number'){
+            setSearchString({...searchString, number: nextValue})
+            }
+        if (type==='date'){
+            setSearchString({...searchString, date: nextValue})
+            }
+       
+        
     }
     return (
         <>
-            <input type='text'
+            <input type={type}
+            value= {value}
             className= 'search-input'
             onChange={handleChange}
-            placeholder='Search'
+            placeholder={placeholder}
 
             />
 

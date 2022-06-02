@@ -6,19 +6,18 @@ const Sidebar=({handleLogout})=> {
     return (
         <div className="sidebar">
             <div className='sidebar-link'>
-           <NavLink className='sidebar-link'
+           <NavLink 
            
-           to= '/'><div><i> <BiHome/></i><span>Home</span></div></NavLink>
+           to= '/'><div> <BiHome/><span>Home</span></div></NavLink>
          </div>
          <div className='sidebar-link'>
-         
-           <NavLink
-           to='/myfavourite'><div><i> <BiBookmarks/></i><span>Favourite</span></div></NavLink> 
+            <NavLink
+           to='/myfavourite'><div> <BiBookmarks/><span>Favourite</span></div></NavLink> 
            </div>
            <div className='sidebar-link'>
            <NavLink
            to='/login'
-           onClick={handleLogout}><div><i> <BiLogOut/></i><span>Logout</span></div></NavLink>
+           onClick={handleLogout}><div><BiLogOut/><span>Logout</span></div></NavLink>
           </div>
        
         </div>

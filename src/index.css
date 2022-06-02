@@ -107,6 +107,7 @@
   grid-template-columns: repeat(auto-fit, 250px);
   gap: 20px 10px;
   padding: 10px;
+  min-height: 100vh
 }
 
 .item-info {
@@ -129,13 +130,13 @@
 .navbar-login:hover {
   background-color: aquamarine;
 }
-.sidebar-link span {
+.sidebar-link{
   text-decoration: none;
   
 }
 .sidebar-link:hover {
   background-color: lightgrey;
- text-decoration: none;
+ 
 }
 
 .navbar-logout {
@@ -163,12 +164,21 @@
 }
 .tab {
   padding: 5px;
-  border: 2px solid;
+  
   font-size: 1.2em;
-  border-bottom: none;
+  border: none;
+  border-bottom: 1px solid;
   cursor: pointer;
+}
+.active {
+font-weight: bold;
+border: 1px solid;
+border-bottom: none;
 }
 .rest {
   border-bottom: 1px solid;
 }
 
+.item-wrapper .liked {
+  
+}

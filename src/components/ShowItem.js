@@ -1,6 +1,7 @@
 import React  from "react"
 import {Link} from 'react-router-dom'
-const ShowItem= ({item})=> {
+import {BiLike} from 'react-icons/bi'
+const ShowItem= ({item, liked})=> {
     const {id,name, image}= item
     
     return (
@@ -13,7 +14,7 @@ const ShowItem= ({item})=> {
 
            
             <div className= 'item-info'>
-                <h4>{name} </h4>
+                <h4>{name} {liked? <BiLike style={{fontSize: '2em'}}/> : null} </h4>
                 <p>Show id {id} </p>  
             </div>
 

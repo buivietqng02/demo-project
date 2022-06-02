@@ -41,7 +41,7 @@ const Signup=()=> {
             </div>
             <div>
             <label htmlFor='email'>Password</label>
-            <input type='text' id='password'
+            <input type='password' id='password'
             name='password' value={input.password} 
             onChange={onChange}
            />

@@ -20,15 +20,23 @@ import EpisodeHome from './components/EpisodeHome'
 
 
 function App() {
-  const value= useSelector((state)=> state.favourite.showFavourite)
+  const s= useSelector(
+    (state)=> state.favourite.showFavourite
+  )
+ 
+  store.subscribe(()=> {
+   console.log('state', s)
+
+  })
+  const value= useSelector((state)=> state.favourite.showLike)
   console.log(value)
   const [list, setList]= useState([])
   const [episodes, setEpisodes]= useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(
    localStorage.getItem('user')
   )
-   const [searchString, setSearchString] = useState('');
-   const [isLoading, setIsLoading] = useState(true);
+   const [searchString, setSearchString] = useState({text:'',number:'', date: ''});
+   console.log(searchString)
    const handleLogout= ()=> {
      setIsAuthenticated(false)
      const user= JSON.parse(localStorage.getItem('user'))
@@ -57,8 +65,7 @@ function App() {
       setIsAuthenticated,
       searchString,
       setSearchString,
-      isLoading,
-      setIsLoading,
+      
       list,
       setList,
       episodes,

@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { Spinner } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
-import { addEpisodeFavourite } from '../redux/slice'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { addEpisodeFavourite, addEpisodeLike,
+removeEpisodeFavourite,
+removeEpisodeLike } from '../redux/slice'
+import callAPI from '../utils/callAPI'
 import { useLocation } from 'react-router-dom'
 const EpisodeDetail= ()=> {
+    const episodeLikeList= useSelector(
+        (state)=> state.favourite.episodeLike
+    )
+    const episodeFavouriteList= useSelector(
+        (state)=> state.favourite.episodeFavourite
+    )
     const dispatch=useDispatch()
     const location= useLocation()
     const params= useParams()
@@ -14,6 +22,24 @@ const EpisodeDetail= ()=> {
     const id= params.id
     const season= params.season
     const number= params.number
+    const isEpisodeLike = (item, episodeLikeList) => {
+        for (let show of episodeLikeList) {
+          if (item.url === show.url) {
+            return true;
+            break;
+          }
+        }
+        return false;
+      };
+      const isEpisodeFavourite = (item, episodeFavouriteList) => {
+        for (let show of episodeFavouriteList) {
+          if (item.url === show.url) {
+            return true;
+            break;
+          }
+        }
+        return false;
+      };
     useEffect(()=> {
         async function readData() {
             setIsLoading(true)
@@ -22,7 +48,7 @@ const EpisodeDetail= ()=> {
             let episode
             if (response.ok) {
              episode= await response.json()
-            
+            episode.show_id= id
             setEpisodeDetail(episode)
             setIsLoading(false)
             } else {
@@ -54,10 +80,20 @@ const EpisodeDetail= ()=> {
                      onClick={()=> dispatch(addEpisodeFavourite(episodeDetail))}
 
                      >Add to Favourite</button>
+                     <button
+                     onClick={()=> dispatch(removeEpisodeFavourite(episodeDetail))}
+
+                     >Remove from Favourite</button>
+                     {isEpisodeFavourite(episodeDetail,episodeFavouriteList)? <span>
+                         You've added this episode to favourite
+                     </span>: ''}
                   </div>   
                   <div>
-                     <button>Like</button>
-                     <button>Unlike</button>
+                     <button onClick={()=> dispatch(addEpisodeLike(episodeDetail))}>Like</button>
+                     <button onClick={()=> dispatch(removeEpisodeLike(episodeDetail))}>Unlike</button>
+                     {isEpisodeLike(episodeDetail,episodeLikeList)? <span>
+                         You've liked this show 
+                     </span>: ''}
                   </div>   
              </div>
         }

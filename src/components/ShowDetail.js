@@ -3,10 +3,18 @@ import {useParams, Link, useLocation} from 'react-router-dom'
 import { useAppContext } from './AppContext'
 import { Spinner } from 'react-bootstrap'
 import {useSelector, useDispatch} from 'react-redux'
-import { addShowFavourite , addEpisodeFavourite} from '../redux/slice'
+import { addShowFavourite , addShowLike, 
+removeShowFavourite,
+removeShowLike} from '../redux/slice'
 
 
 const ShowDetail= ()=> {
+    const showLikeList= useSelector(
+        (state)=> state.favourite.showLike
+    )
+    const showFavouriteList= useSelector(
+        (state)=> state.favourite.showFavourite
+    )
     const dispatch=useDispatch()
     const [isLoading, setIsLoading]= useState(true)
     const location= useLocation()
@@ -14,6 +22,24 @@ const ShowDetail= ()=> {
     const params= useParams()
     const [showDetail, setShowDetail]= useState({})
     const ShowData= list[params.id-1]
+    const isShowLike = (item, showLikeList) => {
+        for (let show of showLikeList) {
+          if (item.url === show.url) {
+            return true;
+            break;
+          }
+        }
+        return false;
+      };
+      const isShowFavourite = (item, showFavouriteList) => {
+        for (let show of showFavouriteList) {
+          if (item.url === show.url) {
+            return true;
+            break;
+          }
+        }
+        return false;
+      };
     useEffect(()=> {
         async function readData(id) {
             setIsLoading(true)
@@ -55,10 +81,24 @@ const ShowDetail= ()=> {
                             
                         dispatch(addShowFavourite(showDetail))}}
                      >Add to Favourite</button>
+                      <button
+                     onClick={()=> {
+                        
+                            
+                        dispatch(removeShowFavourite(showDetail))}}
+                     >Remove from Favourite</button>
+                     {isShowFavourite(showDetail,showFavouriteList)? <span>
+                         You've added this show to favourite
+                     </span>: ''}
                   </div>   
                   <div>
-                     <button>Like</button>
-                     <button>Unlike</button>
+                     <button onClick={()=> dispatch(addShowLike(showDetail))}>Like</button>
+                     <button
+                     onClick={()=> dispatch(removeShowLike(showDetail))}
+                     >Unlike</button>
+                     {isShowLike(showDetail,showLikeList)? <span>
+                         You've liked this show 
+                     </span>: ''}
                   </div>   
         </div>
     }
