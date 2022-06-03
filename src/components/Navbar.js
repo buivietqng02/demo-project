@@ -31,7 +31,7 @@ const NavBar = ({ handleLogout }) => {
           )}
 
           <NavLink
-            style={{ marginLeft: "20px" }}
+            style={{ position: 'absolute',right: "50px" }}
             className="navbar-logout"
             to="/login"
             onClick={handleLogout}

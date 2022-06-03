@@ -7,12 +7,18 @@ removeEpisodeFavourite,
 removeEpisodeLike } from '../redux/slice'
 import callAPI from '../utils/callAPI'
 import { useLocation } from 'react-router-dom'
+import dispatchAndLog from '../redux/log'
+import { useAppContext } from './AppContext'
 const EpisodeDetail= ()=> {
+    const {isAuthenticated}= useAppContext()
     const episodeLikeList= useSelector(
         (state)=> state.favourite.episodeLike
     )
     const episodeFavouriteList= useSelector(
         (state)=> state.favourite.episodeFavourite
+    )
+    const state= useSelector(
+        (state)=> state.favourite
     )
     const dispatch=useDispatch()
     const location= useLocation()
@@ -31,6 +37,19 @@ const EpisodeDetail= ()=> {
         }
         return false;
       };
+      /* function dispatchAndLog(p) {
+   
+        dispatch(p)
+        if (isAuthenticated) {
+            const user= JSON.parse(localStorage.getItem('user'))
+            const email= user.email
+
+            user.state= state
+          
+            localStorage.setItem([email], JSON.stringify(user))
+    
+        }
+    } */
       const isEpisodeFavourite = (item, episodeFavouriteList) => {
         for (let show of episodeFavouriteList) {
           if (item.url === show.url) {
@@ -62,7 +81,7 @@ const EpisodeDetail= ()=> {
              readData()
     },[])
     return (
-        <div style={{position: 'relative', left: '100px', marginTop:'20px'}}>
+        <div className='show-detail-container'>
         {
              (isLoading)  ?
              <Spinner/>
@@ -76,11 +95,11 @@ const EpisodeDetail= ()=> {
                      <p><span style={{fontWeight: 'bold'}}>Rating: </span> {episodeDetail?.rating?.average}</p>
                  </div>
                  <div>
-                     <button
+                     <button className='btn-favourite'
                      onClick={()=> dispatch(addEpisodeFavourite(episodeDetail))}
 
                      >Add to Favourite</button>
-                     <button
+                     <button className='btn-favourite'
                      onClick={()=> dispatch(removeEpisodeFavourite(episodeDetail))}
 
                      >Remove from Favourite</button>
@@ -89,8 +108,10 @@ const EpisodeDetail= ()=> {
                      </span>: ''}
                   </div>   
                   <div>
-                     <button onClick={()=> dispatch(addEpisodeLike(episodeDetail))}>Like</button>
-                     <button onClick={()=> dispatch(removeEpisodeLike(episodeDetail))}>Unlike</button>
+                     <button className='btn-favourite' onClick={()=>
+                         dispatch(addEpisodeLike(episodeDetail))}>Like</button>
+                     <button className='btn-favourite' onClick={()=>
+                         dispatch(removeEpisodeLike(episodeDetail))}>Unlike</button>
                      {isEpisodeLike(episodeDetail,episodeLikeList)? <span>
                          You've liked this show 
                      </span>: ''}

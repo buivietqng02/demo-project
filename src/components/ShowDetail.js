@@ -8,6 +8,7 @@ removeShowFavourite,
 removeShowLike} from '../redux/slice'
 
 
+
 const ShowDetail= ()=> {
     const showLikeList= useSelector(
         (state)=> state.favourite.showLike
@@ -15,10 +16,26 @@ const ShowDetail= ()=> {
     const showFavouriteList= useSelector(
         (state)=> state.favourite.showFavourite
     )
+    const state= useSelector(
+    (state)=> state.favourite
+    )
+    const {list, isAuthenticated}= useAppContext()
     const dispatch=useDispatch()
+   /*  function dispatchAndLog(p) {
+   
+        dispatch(p)
+        if (isAuthenticated) {
+            const user= JSON.parse(localStorage.getItem('user'))
+            const email= user.email
+           
+            localStorage.setItem([email], JSON.stringify(state))
+    
+        }
+    }
+    */
     const [isLoading, setIsLoading]= useState(true)
     const location= useLocation()
-    const {list}= useAppContext()
+    
     const params= useParams()
     const [showDetail, setShowDetail]= useState({})
     const ShowData= list[params.id-1]
@@ -62,9 +79,9 @@ const ShowDetail= ()=> {
              
         const id= params.id
         readData(id)
-    },[location])
+    },[params.id])
     return (
-        <div style={{position: 'relative',left:'100px'}}>
+        <div className='show-detail-container'>
             {isLoading ? <Spinner/> :
         <div>
             <h3>Show Detailds</h3>
@@ -75,13 +92,13 @@ const ShowDetail= ()=> {
             <p><span style={{fontWeight: 'bold'}}>Rating: </span> {showDetail?.rating?.average}</p>
             <Link to={`${location?.pathname}/episodes`}>Go to episodes</Link>
             <div>
-                     <button
+                     <button className='btn-favourite'
                      onClick={()=> {
                         
                             
                         dispatch(addShowFavourite(showDetail))}}
                      >Add to Favourite</button>
-                      <button
+                      <button className='btn-favourite'
                      onClick={()=> {
                         
                             
@@ -92,8 +109,9 @@ const ShowDetail= ()=> {
                      </span>: ''}
                   </div>   
                   <div>
-                     <button onClick={()=> dispatch(addShowLike(showDetail))}>Like</button>
-                     <button
+                     <button className='btn-favourite' onClick={()=>
+                         dispatch(addShowLike(showDetail))}>Like</button>
+                     <button className='btn-favourite'
                      onClick={()=> dispatch(removeShowLike(showDetail))}
                      >Unlike</button>
                      {isShowLike(showDetail,showLikeList)? <span>

@@ -21,11 +21,15 @@ import EpisodeHome from './components/EpisodeHome'
 
 function App() {
   const s= useSelector(
-    (state)=> state.favourite.showFavourite
+    (state)=> state.favourite
   )
  
   store.subscribe(()=> {
-   console.log('state', s)
+   console.log('state of app', s)
+   if (isAuthenticated) {
+     var user= (localStorage.getItem('user'))
+     localStorage.setItem('state', JSON.stringify(s))
+   }
 
   })
   const value= useSelector((state)=> state.favourite.showLike)
